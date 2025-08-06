@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="descripcion" content="Formulario de tareas">
+    <title> CRUD - Tareas</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+</head>
+<body class="bg-gray-100 text-gray-800 font-sans">
+    <img src="https://cdn.pixabay.com/photo/2021/01/20/18/31/penguin-5935370_960_720.png"
+     id="pinguino"
+     alt="Pingüino"
+     style="width: 150px; position: fixed; top: 70%; left: 90%; transform: translate(-50%, -50%); transition: transform 0.1s; z-index: 1000;">
+
+<!-- Script para que mire al mouse -->
+    <img src="imagenes/illustration-penguin-looking-up-vector-260nw-2399558449.webp" alt="imagenes/illustration-penguin-looking-up-vector-260nw-2399558449 mirando el infinito" style="width:200px;">
+<script>
+
+  const pinguino = document.getElementById("pinguino");
+
+  document.addEventListener("mousemove", function (e) {
+    const rect = pinguino.getBoundingClientRect();
+
+    const centerX = rect.left + rect.width / 2;
+    const centerY = rect.top + rect.height / 2;
+
+    const deltaX = e.clientX - centerX;
+    const deltaY = e.clientY - centerY;
+
+    const angle = Math.atan2(deltaY, deltaX) * 180 / Math.PI;
+
+    pinguino.style.transform = `translate(-50%, -50%) rotate(${angle}deg)`;
+  });
+</script>
+    <div class="bg-white dark:bg-gray-800 rounded-lg px-6 py-8 ring shadow-xl ring-gray-900/5">
+      <div>
+        <span class="inline-flex items-center justify-center rounded-md bg-indigo-500 p-6 shadow-lg">
+          <svg class="h-9 w-9 stroke-white">
+            <header class="bg-indigo-800 text-white py-9 shadow-lg">
+                <div class="max-w-6xl mx-auto flex flex-col gap-12 md:flex-row items-center justify-between">
+                    <h1 class="text-4xl font-bold mb-4 mb:mb-0">Administrador de tareas</h1>
+                <nav>
+                    <ul class="flex gap-12 text-sm md:text-base">
+                    <li><a href="" class="hover:underline">Inicio</a></li>
+                    <li><a href="" class="hover:underline">Agregar Tarea</a></li>
+                    <li><a href="" class="hover:underline">Mis Tareas</a></li>
+                    <li><a href="" class="hover:underline">Ayuda</a></li>
+                    </ul>
+                </nav>
+                </div>
+            </header>
+            
+          </svg>
+        </span>
+      </div>
+      <h3 class="text-gray-900 dark:text-white mt-5 text-base font-medium tracking-tight "></h3>
+      <p class="text-gray-500 dark:text-gray-400 mt-2 text-sm ">
+      </p>
+    </div>
+
+    <div>
+    </div>
+    <section class="max-w-3xl mx-auto bg-white p-6 mt-8 rounded shadow">
+        <h2 class="text-xl font-semibold mb-4">Gestion de tareas</h2>
+        <form action="" class="space-y-4">
+            <input type="hidden"/>
+
+            <label for="titulo" class="block font-medium">Titulo:</label>
+            <input type="text" class="w-full border border-gray-300 rounded px-3 py-2" crequired/>
+
+            <label for="Descripcion" class="block font-medium">Descripcion</label>
+            <textarea name="descripcion" id="" class="w-full border border-gray-300 rounded px-3 py-2"></textarea>
+
+            <label for="prioridad" class="block font-medium">Prioridad</label>
+            <select name="prioridad" id="prioridad" class="w-full border border-gray-300 rounded px-3 py-2">
+                <option value="">Seleccionar prioridad</option>
+                <option value="alta">Alta</option>
+                <option value="media">Media</option>
+                <option value="baja">Baja</option>
+            </select>
+
+            <label for="fecha-inicio" class="block font-medium">Fecha de inicio:</label>
+            <input type="date"id="fecha-inicio" name="fecha_inicio" class="w-full border border-gray-300 rounded px-3 py-2"/>
+
+            <label for="fecha-limite" class="block font-medium">Fecha limite</label>
+            <input type="date" id="fecha-limite" name="fecha_limite" class="w-full border border-gray-300 rounded px-3 py-2">
+
+            <label for="estado" class="block font-medium">Estado</label>
+            <select name="estado" id="estado" class="w-full border border-gray-300 rounded px-3 py-2">
+                <option value="">Seleccionar estado</option>
+                <option value="pendiente">Pendiente</option>
+                <option value="en_proceso">En proceso</option>    
+                <option value="completado">Completado</option>    
+            </select>
+
+            <div class="space-y-2 text-center sm:text-left">
+            <button type="submit" name="accion" value="agregar" class="border-purple-200 text-purple-600 hover:border-transparent hover:bg-purple-600 hover:text-white active:bg-purple-700">Agregar</button>
+            </div>
+        </form>
+    </section>
+    <section class="max-w-3xl mx-auto mt-8 p-6 bg-white rounded shadow">
+  <h2 class="text-xl font-semibold mb-4">Lista de tareas</h2>
+  <div id="lista-tareas" class="space-y-4">
+
+    <div class="border border-gray-200 rounded p-4 bg-gray-50">
+      <div class="flex justify-between items-start mb-2">
+        <h3 class="text-lg font-semibold text-indigo-700">Mi primera pagina en HTML</h3>
+        <div class="flex gap-2">
+          <form method="POST" action="/tarea" class="inline">
+            <input type="hidden" name="id" value="1">
+            <button type="submit" name="accion" value="editar"
+              class="bg-blue-500 text-white px-3 py-1 rounded text-sm hover:bg-blue-600">
+              Editar
+            </button>
+          </form>
+          <form method="POST" action="/tarea" class="inline">
+            <input type="hidden" name="id" value="1">
+            <button type="submit" name="accion" value="eliminar"
+              onclick="return confirm('¿Estás seguro de eliminar esta tarea?')"
+              class="bg-red-500 text-white px-3 py-1 rounded text-sm hover:bg-red-600">
+              Eliminar
+            </button>
+          </form>
+        </div>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-2 text-sm text-gray-600">
+        <p><strong>Descripción:</strong>Es mi primera pagina con HTML, en el que gestionaremos las tareas teniendo en cuenta lo visual de la pagina</p>
+        <p><strong>Prioridad:</strong> Alta</p>
+        <p><strong>Fecha Inicio:</strong> 2025-08-01</p>
+        <p><strong>Fecha Límite:</strong> 2025-08-10</p>
+        <p><strong>Estado:</strong> Pendiente</p>
+      </div>
+    </div>
+
+
+
+  </div>
+</section>
+
+    
+    
+        <p>2025 Taller Frontend</p>
+        <nav>
+            <ul>
+                <li><a href="">Politica de privacidad</a></li>
+                <li><a href="">Terminos</a></li>
+                <li><a href="">Contactos</a></li>           
+            </ul>
+        </nav>
+    </footer>
+
+</body>
+</html>
